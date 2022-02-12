@@ -15,8 +15,7 @@
 !/redshift
 !/ncmpcpp
 !/conky
-# /vi/*
-# !/i3/config
+!/lvim
 
 !/i3
 /i3/*
@@ -38,3 +37,4 @@ htop/*
 ranger/*
 !/ranger/rc.conf
 !/ranger/rifle.conf
+

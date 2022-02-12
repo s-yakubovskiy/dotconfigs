@@ -1,0 +1,5 @@
+{
+  "propertes": {
+    "go.formatTool": "goimports"
+  }
+}
