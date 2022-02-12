@@ -1,0 +1,55 @@
+[theme]
+name = "gruvbox-dark"
+#[theme.overrides]
+#critical_bg = "#c45c1f"
+
+[icons]
+#name  = "material"
+name  = "awesome"
+
+[[block]]
+block = "disk_space"
+path = "/"
+alias = "/"
+info_type = "available"
+unit = "GB"
+interval = 40
+warning = 20.0
+alert = 10.0
+
+[[block]]
+block = "memory"
+display_type = "memory"
+format_mem = "{Mup}%"
+format_swap = "{SUp}%"
+
+[[block]]
+block = "cpu"
+interval = 3
+
+[[block]]
+block = "load"
+interval = 3
+format = "{1m}"
+
+[[block]]
+block = "sound"
+
+[[block]]
+block = "backlight"
+device = "intel_backlight"
+
+[[block]]
+block = "battery"
+interval = 35
+format = "{percentage}% {time}"
+
+[[block]]
+block = "custom"
+command = "xkblayout-state print \"%s\""
+interval = 35
+
+[[block]]
+block = "time"
+interval = 60
+format = "%a %d/%m %R"

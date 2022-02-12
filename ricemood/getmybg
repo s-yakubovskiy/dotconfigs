@@ -1,0 +1,5 @@
+#!/usr/bin/env python
+import re
+file = open('/home/yakubovskiy/.config/i3/bg').read()
+wall = re.search("--bg[-\w]+ '(.*?)'",file)
+print(wall.group(1))
