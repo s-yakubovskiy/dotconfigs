@@ -54,7 +54,7 @@
     separator_height = 2
 
     # Padding between text and separator.
-    padding = 8
+    padding = 10
 
     # Horizontal padding.
     horizontal_padding = 8
@@ -72,7 +72,8 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = frame
+    # separator_color = frame
+    separator_color = auto
 
     # Sort messages by urgency.
     sort = yes
@@ -160,13 +161,13 @@
     ### Icons ###
 
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 32
+    max_icon_size = 24
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/Adwaita/16x16/status/:/usr/share/icons/Adwaita/16x16/devices/
 
     ### History ###
 
@@ -183,7 +184,7 @@
     dmenu = /usr/bin/dmenu -p dunst:
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/firefox -new-tab
+    browser = /usr/bin/chromium --new-window
 
     # Always run rule-defined scripts, even if the notification is suppressed
     always_run_script = true
@@ -213,7 +214,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 0
+    corner_radius = 5
 
     ### Legacy
 
@@ -251,24 +252,11 @@
     per_monitor_dpi = false
 
 [shortcuts]
-
-    # Shortcuts are specified as [modifier+][modifier+]...key
-    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-    # "mod3" and "mod4" (windows-key).
-    # Xev might be helpful to find names for keys.
-
     # Close notification.
     close = shift+space
-
     # Close all notifications.
     close_all = ctrl+shift+space
-
-    # Redisplay last message(s).
-    # On the US keyboard layout "grave" is normally above TAB and left
-    # of "1". Make sure this key actually exists on your keyboard layout,
-    # e.g. check output of 'xmodmap -pke'
     history = ctrl+grave
-
     # Context menu.
     context = ctrl+shift+period
 
@@ -282,11 +270,12 @@
     #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#285577"
+    # background = "#285577"
+    background = "#2b2b2b"
     foreground = "#ffffff"
-    timeout = 3
+    timeout = 5
     # Icon for notifications with normal urgency, uncomment to enable
-    #icon = /path/to/icon
+    icon = ~/.config/dunst/emblem-mail.png
 
 [urgency_critical]
     background = "#900000"

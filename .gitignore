@@ -16,6 +16,8 @@
 !/ncmpcpp
 !/conky
 !/lvim
+/lvim/plugin/*
+!/lvim/plugin/.gitkeep
 
 !/i3
 /i3/*

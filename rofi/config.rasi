@@ -12,4 +12,6 @@ configuration {
  kb-mode-previous: "Shift+Left,Control+Shift+Tab,Control+h";
  kb-remove-char-back: "BackSpace";
  }
-@theme "solarized"
+//@theme "solarized"
+//@theme "/usr/share/rofi/themes/Arc-Dark.rasi"
+@theme "/home/yakubovskiy/.local/share/rofi/themes/ricemood.rasi"

@@ -207,6 +207,22 @@ bindsym $mod+F1 exec chromium
 bindsym $mod+x move workspace to output right
 bindsym $mod+Shift+Ctrl+s exec --no-startup-id xfce4-session-logout
 
+bindsym $mod+Shift+p exec "~/.scripts/rofi-pass.sh"
+# bindsym $mod+p mode "password"
+# mode "password" {
+#     bindsym p exec "~/.scripts/rofi-pass.sh"
+#     bindsym t exec "~/.scripts/rofi-pass.sh --type"
+
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+#     bindsym $mod+r mode "default"
+# }
+
+
+### dunst
+bindsym Shift+space exec "dunstctl close-all"
+bindsym Ctrl+grave exec "dunstctl history-pop"
+
 
 bindsym --release $mod+Print exec --no-startup-id "notify-send 'Screen captured' && maim -s | xclip -selection clipboard -t image/png"
 
