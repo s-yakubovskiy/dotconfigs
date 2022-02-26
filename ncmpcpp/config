@@ -23,7 +23,7 @@
 #
 ##### connection settings #####
 #
-mpd_host = 192.168.100.11
+mpd_host = mpdpi
 #
 mpd_port = 6600
 #
@@ -320,7 +320,7 @@ visualizer_look = ●▮
 ## notifications etc.
 ##
 #execute_on_song_change = ""
-execute_on_song_change = notify-send "Now Playing" "$(mpc --host=192.168.100.11 --port=6600 --format '%title% \n%artist% - %album%')"
+execute_on_song_change = notify-send "Now Playing" "$(mpc --host=mpdpi --port=6600 --format '%title% \n%artist% - %album%')"
 #
 ##
 ## Note: Custom command that will be executed each time player state
@@ -329,7 +329,7 @@ execute_on_song_change = notify-send "Now Playing" "$(mpc --host=192.168.100.11 
 ##
 #
 #execute_on_player_state_change = ""
-execute_on_player_state_change = notify-send "Now Playing" "$(mpc --host=192.168.100.11 --port=6600 --format '%title% \n%artist% - %album%')"
+execute_on_player_state_change = notify-send "Now Playing" "$(mpc --host=mpdpi --port=6600 --format '%title% \n%artist% - %album%')"
 #
 #playlist_show_mpd_host = no
 #
@@ -598,3 +598,11 @@ execute_on_player_state_change = notify-send "Now Playing" "$(mpc --host=192.168
 #
 #active_window_border = red
 #
+#
+
+## [visualize on remote fifo]
+  # > start on ncmpcpp host with:
+  # nc -l -p 1337 > /tmp/mpd.fifo
+  # > start netcat on mpd host:
+  # 
+  # nc $ncmpcpp_host 1337 < /tmp/mpd.fifo

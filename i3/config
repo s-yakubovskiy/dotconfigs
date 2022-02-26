@@ -207,7 +207,9 @@ bindsym $mod+F1 exec chromium
 bindsym $mod+x move workspace to output right
 bindsym $mod+Shift+Ctrl+s exec --no-startup-id xfce4-session-logout
 
-bindsym $mod+Shift+p exec "~/.scripts/rofi-pass.sh"
+bindsym $mod+Shift+p exec  --no-startup-id "~/.scripts/rofi-pass.sh"
+# bindsym $mod+Shift+p exec "~/.scripts/rofi-pass_i3"
+# bindsym $mod+Shift+p exec "passmenu"
 # bindsym $mod+p mode "password"
 # mode "password" {
 #     bindsym p exec "~/.scripts/rofi-pass.sh"
