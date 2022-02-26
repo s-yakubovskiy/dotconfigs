@@ -30,7 +30,7 @@ exec --no-startup-id xset r rate 440 44
 
 
 # I use the russian keyboard sometimes..
-#exec_always setxkbmap us,ru -option grp:win_space_toggle
+#exec setxkbmap us,ru -option grp:win_space_toggle -option grp_led:caps
 #exec --no-startup-id "setxkbmap -layout us,ru -option grp:shift_caps_toggle"
 #exec_always --no-startup-id "setxkbmap -layout us,ru -option grp:win_space_toggle"
 #exec_always --no-startup-id setxkbmap us,ru
@@ -202,6 +202,7 @@ bindsym $mod+w exec "rofi -combi-modi window,drun,run -show run"
 bindsym $mod+Tab exec "rofi -combi-modi window,drun,run -show window"
 bindsym $mod+Shift+w exec "networkmanager_dmenu"
 bindsym $mod+Shift+s exec "rofi -modi rdp:/home/yakubovskiy/.scripts/rofi-rdp-sessions.sh -show rdp"
+bindsym $mod+Shift+h exec "rofi -modi ssh -show"
 bindsym $mod+t exec thunar
 bindsym $mod+F1 exec chromium
 bindsym $mod+x move workspace to output right
