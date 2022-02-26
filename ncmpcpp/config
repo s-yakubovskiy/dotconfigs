@@ -23,7 +23,7 @@
 #
 ##### connection settings #####
 #
-mpd_host = 192.168.100.4
+mpd_host = 192.168.100.11
 #
 mpd_port = 6600
 #
@@ -320,6 +320,7 @@ visualizer_look = ●▮
 ## notifications etc.
 ##
 #execute_on_song_change = ""
+execute_on_song_change = notify-send "Now Playing" "$(mpc --host=192.168.100.11 --port=6600 --format '%title% \n%artist% - %album%')"
 #
 ##
 ## Note: Custom command that will be executed each time player state
@@ -328,6 +329,7 @@ visualizer_look = ●▮
 ##
 #
 #execute_on_player_state_change = ""
+execute_on_player_state_change = notify-send "Now Playing" "$(mpc --host=192.168.100.11 --port=6600 --format '%title% \n%artist% - %album%')"
 #
 #playlist_show_mpd_host = no
 #
