@@ -114,10 +114,26 @@ lvim.builtin.telescope.defaults.mappings = {
 
 -- Use which-key to add extra bindings with the leader-key prefix
 lvim.builtin.which_key.mappings["z"] = { "<cmd>ZenMode<CR>", "Zen Mode" }
+-- lvim.builtin.which_key.mappings["T"] = { ":TodoQuickFix<CR>", "ToDo quick fix" }
 lvim.builtin.which_key.mappings["t"] = { ":TodoQuickFix<CR>", "ToDo quick fix" }
 lvim.builtin.which_key.mappings["-"] = { ":RnvimrToggle<CR>", "Ranger Explorer" }
 lvim.builtin.which_key.mappings["a"] = { "<cmd>lua _lazygit_toggle()<CR>", "GitUI" }
 -- lvim.keys.normal_mode["<S-F>"] = ":Glow<CR>"
+
+lvim.builtin.which_key.mappings["t"] = {
+  name = "todotroubles",
+  t = { ":TodoQuickFix<CR>", "ToDo quick fix" },
+  T = { "<cmd>TroubleToggle<cr>", "trouble" },
+  w = { "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>", "workspace" },
+  d = { "<cmd>TroubleToggle lsp_document_diagnostics<cr>", "document" },
+  q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+  l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+  r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
+}
+lvim.builtin.which_key.mappings["F"] = {
+  name = "Find&Replace",
+  s = { ":lua require('spectre').open()<CR>", "ToDo quick fix" },
+}
 
 
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -325,6 +341,16 @@ lvim.plugins = {
     {
       "folke/todo-comments.nvim",
       event = "BufRead",
+      config = function()
+        require("todo-comments").setup()
+      end,
+    },
+    {
+      "windwp/nvim-spectre",
+      event = "BufRead",
+      config = function()
+        require("spectre").setup()
+      end,
     },
 }
 

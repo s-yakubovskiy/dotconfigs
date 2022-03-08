@@ -231,10 +231,10 @@ bindsym --release $mod+Print exec --no-startup-id "notify-send 'Screen captured'
 
 bindsym $mod+shift+space exec  "bash /home/yakubovskiy/.scripts/switch-layout.sh"
 bindsym XF86AudioMute exec "bash /home/yakubovskiy/.scripts/changeVolume mute"
-bindsym XF86AudioLowerVolume exec changeVolume 2dB- 
-bindsym XF86AudioRaiseVolume exec changeVolume 2dB+ unmute
-bindsym XF86MonBrightnessUp exec changeBrightness 50
-bindsym XF86MonBrightnessDown exec changeBrightness -50
+bindsym XF86AudioLowerVolume exec "/home/yakubovskiy/.scripts/changeVolume 2dB- "
+bindsym XF86AudioRaiseVolume exec "/home/yakubovskiy/.scripts/changeVolume 2dB+ unmute"
+bindsym XF86MonBrightnessUp exec ~/.scripts/changeBrightness 50
+bindsym XF86MonBrightnessDown exec ~/.scripts/changeBrightness -50
 #bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 #bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
