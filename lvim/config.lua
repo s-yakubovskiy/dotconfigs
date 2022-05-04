@@ -12,7 +12,8 @@ lvim.keys.normal_mode["<S-Tab>"] = ":bnext<CR>"
 lvim.keys.normal_mode["<Tab>"] = ":bprevious<CR>"
 lvim.keys.normal_mode["<S-F>"] = ":RnvimrToggle<CR>"
 -- add your own keymapping
-lvim.builtin.dashboard.active = true
+-- lvim.builtin.dashboard.active = true
+lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.float_opts = {
@@ -42,6 +43,7 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "hcl",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -122,8 +124,8 @@ lvim.builtin.which_key.mappings["a"] = { "<cmd>lua _lazygit_toggle()<CR>", "GitU
 
 lvim.builtin.which_key.mappings["t"] = {
   name = "todotroubles",
-  t = { ":TodoQuickFix<CR>", "ToDo quick fix" },
-  T = { "<cmd>TroubleToggle<cr>", "trouble" },
+  t = { "<cmd>TroubleToggle<cr>", "Trouble Toggle" },
+  T = { ":TodoQuickFix<CR>", "ToDo quick fix" },
   w = { "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>", "workspace" },
   d = { "<cmd>TroubleToggle lsp_document_diagnostics<cr>", "document" },
   q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
@@ -158,17 +160,25 @@ lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 75
 -- generic LSP settings
 lvim.lsp.automatic_servers_installation = true
 
-
+-- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
+-- parser_configs.hcl = {
+--   filetype = "hcl", "terraform",
+-- }
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
+  { command = "black" },
   { exe = "goimports" },
-  -- { exe = "black" },
   {
     exe = "prettier",
     args = { "--print-with", "100" },
     filetypes = { "typescript", "typescriptreact" },
   },
+  -- {
+  --   command = "terraform_fmt",
+  --   args = { "fmt", "-" },
+  --   filetypes = { "hcl" },
+  -- },
 }
 -- lvim.lang.go.formatter.exe = "goimports"
 -- lvim.lang.go.formatters = {
@@ -252,6 +262,9 @@ lvim.plugins = {
       end
     },
     {
+      "fatih/vim-hclfmt"
+    },
+    {
       "kdheepak/lazygit.nvim"
     },
     {
@@ -272,16 +285,16 @@ lvim.plugins = {
           }
         end,
     },
-    {
-      "f-person/git-blame.nvim",
-      event = "BufRead",
-      config = function()
-        vim.cmd "highlight default link gitblame SpecialComment"
-        vim.g.gitblame_enabled = 0
-        vim.cmd "GitBlameToggle"
-        vim.cmd "GitBlameToggle"
-      end,
-    },
+    -- {
+    --   "f-person/git-blame.nvim",
+    --   event = "BufRead",
+    --   config = function()
+    --     vim.cmd "highlight default link gitblame SpecialComment"
+    --     vim.g.gitblame_enabled = 0
+    --     vim.cmd "GitBlameToggle"
+    --     vim.cmd "GitBlameToggle"
+    --   end,
+    -- },
     {
       "folke/zen-mode.nvim",
       cmd = "ZenMode",
@@ -352,13 +365,22 @@ lvim.plugins = {
         require("spectre").setup()
       end,
     },
+    {
+      "towolf/vim-helm",
+    },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands.custom_groups = {
   { "BufWinEnter", "*", "set listchars=tab:→\\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»" },
+  -- { "BufWinLeave", "*", "mkview" },
+  { "BufWrite", "*", "mkview" },
+  { "BufWinEnter", "*", "silent! loadview" },
+  -- { "BufWrite", "*.hcl", "execute '!hclfmt'" },
+  -- { "BufWrite", "*.hcl", "HclFmt" },
 }
 -- lvim.autocommands.custom_groups = {
 --   { "BufWinLeave", "*", "mkview" },
 --   { "BufWinEnter", "*", "silent! loadview" },
 -- }
+
