@@ -17,14 +17,14 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.terminal.float_opts = {
-      border = "curved",
-      width = 170,
-      height = 41,
-      winblend = 0,
-      highlights = {
-        border = "Normal",
-        background = "Normal",
-      },
+  border = "curved",
+  width = 170,
+  height = 41,
+  winblend = 0,
+  highlights = {
+    border = "Normal",
+    background = "Normal",
+  },
 }
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
@@ -43,6 +43,13 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "gomod",
+  "dockerfile",
+  "dot",
+  "go",
+  "markdown",
+  "toml",
+  "make",
   "hcl",
 }
 
@@ -134,7 +141,7 @@ lvim.builtin.which_key.mappings["t"] = {
 }
 lvim.builtin.which_key.mappings["F"] = {
   name = "Find&Replace",
-  s = { ":lua require('spectre').open()<CR>", "ToDo quick fix" },
+  s = { ":lua require('spectre').open()<CR>", "Find and Replace with Spectre" },
 }
 
 
@@ -159,6 +166,9 @@ lvim.builtin.telescope.defaults.layout_config.preview_cutoff = 75
 
 -- generic LSP settings
 lvim.lsp.automatic_servers_installation = true
+--
+-- treesitter bug from https://github.com/LunarVim/LunarVim/issues/1867
+lvim.builtin.treesitter.indent = { enable = true, disable = { "python" } }
 
 -- local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 -- parser_configs.hcl = {
@@ -167,13 +177,18 @@ lvim.lsp.automatic_servers_installation = true
 
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  { command = "black" },
-  { exe = "goimports" },
+  { command = "autopep8", filetypes = { "py", "python" } },
+  { command = "goimports" },
   {
-    exe = "prettier",
+    command = "prettier",
     args = { "--print-with", "100" },
-    filetypes = { "typescript", "typescriptreact" },
+    filetypes = { "typescript", "typescriptreact", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "markdown", "graphql", "yaml", "yml", "hcl" },
+    -- filetypes = { "typescript", "typescriptreact", "yaml" },
   },
+  -- {
+  --   exe = "hclfmt",
+  --   filetypes = { "hcl" },
+  -- },
   -- {
   --   command = "terraform_fmt",
   --   args = { "fmt", "-" },
@@ -191,191 +206,191 @@ formatters.setup {
 lvim.plugins = {
   {
     "folke/tokyonight.nvim",
-      -- config = function()
-      --   vim.g.tokyonight_style = "storm"
-      --   vim.g.tokyonight_italic_functions = false
-      --   vim.g.tokyonight_colors = {
-      --     hint = "orange",
-      --     orange = "red",
-      --     error = "#ff0000",
-      --     green = "#bde69e",
-      --     green1 = "#89ddff",
-      --     green2 = "red",
-      --     blue1 = "orange",
-      --     yellow = "#fde998",
-      --     -- blue1 = "#ffd732",
-      --     blue = "cyan",
-      --     bg_dark = "#ffe26a",
-      --     -- fg = "#89ddff",
-      --     fg = "#fff",
-      --     -- fg = "#d0d0d0",
-      --   }
-      --   vim.cmd "colorscheme tokyonight"
-      --   end,
-  },
-  {"christianchiarulli/nvcode-color-schemes.vim"},
-  {"sindrets/diffview.nvim"},
-    -- {"sainnhe/sonoka"},
-  {"sainnhe/edge"},
-  {"nxvu699134/vn-night.nvim"},
-  {"dracula/vim"},
-  {"shaunsingh/nord.nvim"},
-    {
-      "folke/trouble.nvim",
-      cmd = "TroubleToggle",
-    },
-    {
-      "kevinhwang91/rnvimr",
-        cmd = "RnvimrToggle",
-        config = function()
-          vim.g.rnvimr_draw_border = 1
-          vim.g.rnvimr_pick_enable = 1
-          vim.g.rnvimr_bw_enable = 1
-          vim.api.nvim_set_keymap('n', '-', ':RnvimrToggle<CR>', {noremap = true, silent = true})
-          vim.cmd "let g:rnvimr_layout = {'relative': 'editor', 'width': float2nr(round(0.9 * &columns)), 'height': float2nr(round(0.9 * &lines)), 'col': float2nr(round(0.05 * &columns)), 'row': float2nr(round(0.05 * &lines)), 'style': 'minimal'}"
-          end,
-    },
-    {
-      "norcalli/nvim-colorizer.lua",
-        config = function()
-          require("colorizer").setup({ "*" }, {
-              RGB = true, -- #RGB hex codes
-              RRGGBB = true, -- #RRGGBB hex codes
-              RRGGBBAA = true, -- #RRGGBBAA hex codes
-              rgb_fn = true, -- CSS rgb() and rgba() functions
-              hsl_fn = true, -- CSS hsl() and hsla() functions
-              css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
-              css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
-              })
-      end,
-    },
-    {
-      "lukas-reineke/indent-blankline.nvim",
-      event = "BufRead",
-      setup = function()
-        vim.g.indentLine_enabled = 1
-        vim.g.indent_blankline_char = "▏"
-        vim.g.indent_blankline_filetype_exclude = {"help", "terminal", "dashboard"}
-        vim.g.indent_blankline_buftype_exclude = {"terminal"}
-        vim.g.indent_blankline_show_trailing_blankline_indent = false
-        vim.g.indent_blankline_show_first_indent_level = false
-      end
-    },
-    {
-      "fatih/vim-hclfmt"
-    },
-    {
-      "kdheepak/lazygit.nvim"
-    },
-    {
-      "npxbr/glow.nvim",
-      ft = {"markdown"}
-    },
-    {
-      "p00f/nvim-ts-rainbow",
-        config = function()
-          require'nvim-treesitter.configs'.setup {
-            rainbow = {
-              enable = true,
-              extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-              max_file_lines = nil, -- Do not enable for files with more than n lines, int
-              -- colors = {}, -- table of hex strings
-              -- termcolors = {} -- table of colour name strings
-            }
-          }
-        end,
-    },
-    -- {
-    --   "f-person/git-blame.nvim",
-    --   event = "BufRead",
-    --   config = function()
-    --     vim.cmd "highlight default link gitblame SpecialComment"
-    --     vim.g.gitblame_enabled = 0
-    --     vim.cmd "GitBlameToggle"
-    --     vim.cmd "GitBlameToggle"
+    -- config = function()
+    --   vim.g.tokyonight_style = "storm"
+    --   vim.g.tokyonight_italic_functions = false
+    --   vim.g.tokyonight_colors = {
+    --     hint = "orange",
+    --     orange = "red",
+    --     error = "#ff0000",
+    --     green = "#bde69e",
+    --     green1 = "#89ddff",
+    --     green2 = "red",
+    --     blue1 = "orange",
+    --     yellow = "#fde998",
+    --     -- blue1 = "#ffd732",
+    --     blue = "cyan",
+    --     bg_dark = "#ffe26a",
+    --     -- fg = "#89ddff",
+    --     fg = "#fff",
+    --     -- fg = "#d0d0d0",
+    --   }
+    --   vim.cmd "colorscheme tokyonight"
     --   end,
-    -- },
-    {
-      "folke/zen-mode.nvim",
-      cmd = "ZenMode",
-      event = "BufRead",
-      config = function()
-        require("zen-mode").setup({
-          window = {
-            backdrop = 1,
-            height = 0.85, -- height of the Zen window
-            options = {
-              signcolumn = "no", -- disable signcolumn
-              number = false, -- disable number column
-              relativenumber = false, -- disable relative numbers
-              -- cursorline = false, -- disable cursorline
-              -- cursorcolumn = false, -- disable cursor column
-              -- foldcolumn = "0", -- disable fold column
-              -- list = false, -- disable whitespace characters
-            },
+  },
+  { "christianchiarulli/nvcode-color-schemes.vim" },
+  { "sindrets/diffview.nvim" },
+  -- {"sainnhe/sonoka"},
+  { "sainnhe/edge" },
+  { "nxvu699134/vn-night.nvim" },
+  { "dracula/vim" },
+  { "shaunsingh/nord.nvim" },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+  },
+  {
+    "kevinhwang91/rnvimr",
+    cmd = "RnvimrToggle",
+    config = function()
+      vim.g.rnvimr_draw_border = 1
+      vim.g.rnvimr_pick_enable = 1
+      vim.g.rnvimr_bw_enable = 1
+      vim.api.nvim_set_keymap('n', '-', ':RnvimrToggle<CR>', { noremap = true, silent = true })
+      vim.cmd "let g:rnvimr_layout = {'relative': 'editor', 'width': float2nr(round(0.9 * &columns)), 'height': float2nr(round(0.9 * &lines)), 'col': float2nr(round(0.05 * &columns)), 'row': float2nr(round(0.05 * &lines)), 'style': 'minimal'}"
+    end,
+  },
+  {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require("colorizer").setup({ "*" }, {
+        RGB = true, -- #RGB hex codes
+        RRGGBB = true, -- #RRGGBB hex codes
+        RRGGBBAA = true, -- #RRGGBBAA hex codes
+        rgb_fn = true, -- CSS rgb() and rgba() functions
+        hsl_fn = true, -- CSS hsl() and hsla() functions
+        css = true, -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+        css_fn = true, -- Enable all CSS *functions*: rgb_fn, hsl_fn
+      })
+    end,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufRead",
+    setup = function()
+      vim.g.indentLine_enabled = 1
+      vim.g.indent_blankline_char = "▏"
+      vim.g.indent_blankline_filetype_exclude = { "help", "terminal", "dashboard" }
+      vim.g.indent_blankline_buftype_exclude = { "terminal" }
+      vim.g.indent_blankline_show_trailing_blankline_indent = false
+      vim.g.indent_blankline_show_first_indent_level = false
+    end
+  },
+  {
+    "fatih/vim-hclfmt"
+  },
+  {
+    "kdheepak/lazygit.nvim"
+  },
+  {
+    "npxbr/glow.nvim",
+    ft = { "markdown" }
+  },
+  {
+    "p00f/nvim-ts-rainbow",
+    config = function()
+      require 'nvim-treesitter.configs'.setup {
+        rainbow = {
+          enable = true,
+          extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+          max_file_lines = nil, -- Do not enable for files with more than n lines, int
+          -- colors = {}, -- table of hex strings
+          -- termcolors = {} -- table of colour name strings
+        }
+      }
+    end,
+  },
+  -- {
+  --   "f-person/git-blame.nvim",
+  --   event = "BufRead",
+  --   config = function()
+  --     vim.cmd "highlight default link gitblame SpecialComment"
+  --     vim.g.gitblame_enabled = 0
+  --     vim.cmd "GitBlameToggle"
+  --     vim.cmd "GitBlameToggle"
+  --   end,
+  -- },
+  {
+    "folke/zen-mode.nvim",
+    cmd = "ZenMode",
+    event = "BufRead",
+    config = function()
+      require("zen-mode").setup({
+        window = {
+          backdrop = 1,
+          height = 0.85, -- height of the Zen window
+          options = {
+            signcolumn = "no", -- disable signcolumn
+            number = false, -- disable number column
+            relativenumber = false, -- disable relative numbers
+            -- cursorline = false, -- disable cursorline
+            -- cursorcolumn = false, -- disable cursor column
+            -- foldcolumn = "0", -- disable fold column
+            -- list = false, -- disable whitespace characters
           },
-          plugins = {
-            gitsigns = { enabled = false }, -- disables git signs
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-          },
-        })
-      end,
-    },
-    {
-      "ethanholz/nvim-lastplace",
-      event = "BufRead",
-      config = function()
-        require("nvim-lastplace").setup({
-          lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-          lastplace_ignore_filetype = {
-            "gitcommit", "gitrebase", "svn", "hgcommit",
-          },
-          lastplace_open_folds = true,
-        })
-      end,
-    },
-    {
-      "felipec/vim-sanegx",
-      event = "BufRead",
-    },
-    {
-      "tpope/vim-surround",
-      keys = {"c", "d", "y"}
-    },
-    {
-      "andymass/vim-matchup",
-      event = "CursorMoved",
-      config = function()
-        vim.g.matchup_matchparen_offscreen = { method = "popup" }
-      end,
-    },
-    {
-      "folke/todo-comments.nvim",
-      event = "BufRead",
-      config = function()
-        require("todo-comments").setup()
-      end,
-    },
-    {
-      "windwp/nvim-spectre",
-      event = "BufRead",
-      config = function()
-        require("spectre").setup()
-      end,
-    },
-    {
-      "towolf/vim-helm",
-    },
+        },
+        plugins = {
+          gitsigns = { enabled = false }, -- disables git signs
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        },
+      })
+    end,
+  },
+  {
+    "ethanholz/nvim-lastplace",
+    event = "BufRead",
+    config = function()
+      require("nvim-lastplace").setup({
+        lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
+        lastplace_ignore_filetype = {
+          "gitcommit", "gitrebase", "svn", "hgcommit",
+        },
+        lastplace_open_folds = true,
+      })
+    end,
+  },
+  {
+    "felipec/vim-sanegx",
+    event = "BufRead",
+  },
+  {
+    "tpope/vim-surround",
+    keys = { "c", "d", "y" }
+  },
+  {
+    "andymass/vim-matchup",
+    event = "CursorMoved",
+    config = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+    end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
+  {
+    "windwp/nvim-spectre",
+    event = "BufRead",
+    config = function()
+      require("spectre").setup()
+    end,
+  },
+  {
+    "towolf/vim-helm",
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands.custom_groups = {
   { "BufWinEnter", "*", "set listchars=tab:→\\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»" },
   -- { "BufWinLeave", "*", "mkview" },
-  { "BufWrite", "*", "mkview" },
-  { "BufWinEnter", "*", "silent! loadview" },
+  -- { "BufWrite", "*", "mkview" },
+  -- { "BufWinEnter", "*", "silent! loadview" },
   -- { "BufWrite", "*.hcl", "execute '!hclfmt'" },
   -- { "BufWrite", "*.hcl", "HclFmt" },
 }
@@ -383,4 +398,3 @@ lvim.autocommands.custom_groups = {
 --   { "BufWinLeave", "*", "mkview" },
 --   { "BufWinEnter", "*", "silent! loadview" },
 -- }
-

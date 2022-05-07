@@ -40,3 +40,4 @@ ranger/*
 !/ranger/rc.conf
 !/ranger/rifle.conf
 
+!/scripts
