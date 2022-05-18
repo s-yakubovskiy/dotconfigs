@@ -41,3 +41,6 @@ ranger/*
 !/ranger/rifle.conf
 
 !/scripts
+!/shell
+shell/*
+!/shell/secrets/*

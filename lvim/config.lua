@@ -352,7 +352,7 @@ lvim.plugins = {
     end,
   },
   {
-    "felipec/vim-sanegx",
+    "s-yakubovskiy/vim-gx",
     event = "BufRead",
   },
   {
@@ -382,6 +382,9 @@ lvim.plugins = {
   },
   {
     "towolf/vim-helm",
+  },
+  {
+    "lepture/vim-jinja",
   },
 }
 
