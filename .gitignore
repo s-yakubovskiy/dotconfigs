@@ -42,5 +42,4 @@ ranger/*
 
 !/scripts
 !/shell
-shell/*
-!/shell/secrets/*
+shell/secrets/*

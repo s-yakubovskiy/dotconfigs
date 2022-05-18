@@ -1,0 +1,67 @@
+# vim: set ft=sh: 
+## ALIASES
+alias cp='cp --verbose'
+alias ls='ls --color=auto'
+alias mv='mv --verbose'
+alias mpc='mpc --wait'
+alias ls='ls --color=always'
+alias ll='ls -l'
+alias la='ls -a'
+alias lla='ls -la'
+alias less='less -R'
+alias view="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}' | xargs -r $EDITOR"
+alias "open=xdg-open"
+alias vim=lvim
+# alias nvim=/opt/nvim/nvim.appimage
+alias vi=vim
+#alias vim=nvim
+eval $(thefuck --alias)
+alias ssh-finger="ssh-keygen -E md5 -lf"
+alias ducks="du -cksh * | sort -rn | head"
+alias szsh="source ~/.zshrc"
+#alias ls=lsd
+
+#vault alias
+alias v='vault'
+
+## k8s aliases
+alias k='kubectl'
+alias kgp='kubectl get pods'
+alias kgd='kubectl get deployment'
+alias kgs='kubectl get service'
+alias kgj='kubectl get job'
+alias kgcj='kubectl get cronjob'
+alias kga='kubectl get all'
+alias kgaa='kubectl get all -A'
+alias kdp='kubectl delete pod --grace-period=0 --force'
+alias kcf='kubectl create -f'
+alias kaf='kubectl apply -f'
+alias kdf='kubectl delete -f'
+export drc=(--dry-run=client -o yaml)
+
+alias gu="lazygit"
+# alias lazygit="gitui"
+
+
+## gcloud aliases
+alias g='gcloud'
+alias gcs='gcloud compute ssh'
+
+## terraform
+alias tf='terraform'
+alias tfa='terraform apply'
+alias tfaa='terraform apply -auto-approve'
+alias tfw='terraform workspace select'
+alias tg='terragrunt'
+alias tga='terragrunt apply'
+alias tgd='terragrunt destroy'
+complete -W "$(terragrunt | grep -A123 "COMMANDS" | head -n-7 | grep '^   ' | awk '{ print $1 }' | grep -v '*' | xargs)" terragrunt tg
+# alias tfd='terraform destroy -auto-approve'
+
+## kvm
+alias vv='virt-viewer'
+
+## usefull oneliners
+alias urlencode='python3 -c "import urllib.parse, sys; print(urllib.parse.quote( sys.argv[1] if len(sys.argv) > 1 else sys.stdin.read()[0:-1], safe=\"\" ))"'
+alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote( sys.argv[1] if len(sys.argv) > 1 else sys.stdin.read()[0:-1] ))"'
+alias ping-g='ping -c1 www.google.com'
