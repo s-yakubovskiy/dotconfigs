@@ -43,3 +43,4 @@ ranger/*
 !/scripts
 !/shell
 shell/secrets/*
+zoomus.conf
