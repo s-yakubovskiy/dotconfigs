@@ -1,0 +1,10 @@
+# vim: set ft=sh: 
+echo -e "\e[33mTHUNDER-WIFI\t ... \033[0m working env"
+deactivate &>/dev/null
+export KUBECONFIG=~/projects/terragrunt/thunder-wifi/stages/prod/k8s/commons/kubeconfig
+export ACTIVE_WENV="thunder-wifi"
+echo -e "\e[33mKUBECONFIG\t ... \033[0m $KUBECONFIG"
+yellow "$(figlet THUNDER WIFI)"
+
+if [ -f "$HOME/.config/shell/secrets/commons" ]; then source "$HOME/.config/shell/secrets/commons"; fi
+if [ -f "$HOME/.config/shell/secrets/thunder-wifi" ]; then source "$HOME/.config/shell/secrets/thunder-wifi"; fi

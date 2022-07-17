@@ -1,0 +1,16 @@
+# vim: set ft=sh: 
+echo -e "\e[34mDEFAULT\t\t ... \033[0m working env"
+deactivate &>/dev/null
+export ACTIVE_WENV="default"
+export KUBECONFIG=~/.kube/config
+export VAULT_ADDR="https://vault.istio.iot"
+export LDAPCONF=~/.ldaprc
+echo -e "\e[34mKUBECONFIG\t ... \033[0m $KUBECONFIG"
+cyan "$(figlet DEFAULT)"
+# echo -e "KUBECONFIG: $KUBECONFIG"
+# unset KUBECONFIG
+
+# SECRETS
+### COMMONS
+if [ -f "$HOME/.config/shell/secrets/commons" ]; then source "$HOME/.config/shell/secrets/commons"; fi
+

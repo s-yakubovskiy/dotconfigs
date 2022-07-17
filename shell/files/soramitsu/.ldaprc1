@@ -1,0 +1,3 @@
+BASE    dc=ldap,dc=soramitsu,dc=co,dc=jp
+URI     ldaps://ldap1.soramitsu.co.jp
+BINDDN  uid=argocd,ou=bot,dc=ldap,dc=soramitsu,dc=co,dc=jp

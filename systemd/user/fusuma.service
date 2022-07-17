@@ -1,0 +1,26 @@
+; [Unit]
+; Description=Fusuma touchpad extensions
+; After=graphical.target
+
+; [Service]
+; ; User=yakubovskiy
+; Type=simple
+; Environment=DISPLAY=:1
+; ExecStart=/home/yakubovskiy/.local/share/gem/ruby/3.0.0/bin/fusuma
+; TimeoutStopSec=5
+
+; [Install]
+; WantedBy=graphical.target
+[Unit]
+Description=Fusuma multitouch gesture recognizer
+
+[Service]
+Type=simple
+Environment="DISPLAY=:0"
+; User=%i
+ExecStart=/home/yakubovskiy/.local/share/gem/ruby/3.0.0/bin/fusuma -c /home/yakubovskiy/.config/fusuma/config.yml
+KillMode=process
+Restart=on-failure
+    
+[Install]
+WantedBy=graphical.target

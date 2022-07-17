@@ -1,0 +1,11 @@
+# vim: set ft=sh: 
+echo -e "\e[32mSORAMITSU-LOCAL\t ... \033[0m working env"
+source ~/work/soramitsu/venvs/soramitsu/bin/activate
+export KUBECONFIG=~/.kube/xps15.config
+export ACTIVE_WENV="sora-local"
+echo -e "\e[32mKUBECONFIG\t ... \033[0m $KUBECONFIG"
+green "$(figlet SORA-LOCAL)"
+
+# SECRETS
+### SORAMITSU
+if [ -f "$HOME/.config/shell/secrets/soramitsu" ]; then source "$HOME/.config/shell/secrets/soramitsu"; fi

@@ -1,5 +1,16 @@
+-- suppress error messages from lang servers
+vim.notify = function(msg, log_level, _opts)
+  if msg:match("exit code") then
+    return
+  end
+  if log_level == vim.log.levels.ERROR then
+    vim.api.nvim_err_writeln(msg)
+  else
+    vim.api.nvim_echo({ { msg } }, true, {})
+  end
+end
 -- general
-lvim.log.level = "warn"
+lvim.log.level = "debug"
 lvim.format_on_save = true
 lvim.colorscheme = "onedarker"
 -- lvim.colorscheme = "palenight"
@@ -11,6 +22,8 @@ lvim.keys.normal_mode["Q"] = "<NOP>"
 lvim.keys.normal_mode["<S-Tab>"] = ":bnext<CR>"
 lvim.keys.normal_mode["<Tab>"] = ":bprevious<CR>"
 lvim.keys.normal_mode["<S-F>"] = ":RnvimrToggle<CR>"
+lvim.keys.normal_mode["<F2>"] = ":set spell!<CR>"
+lvim.keys.normal_mode["<F3>"] = ":set wrap!<CR>:set linebreak<CR>"
 -- add your own keymapping
 -- lvim.builtin.dashboard.active = true
 lvim.builtin.alpha.mode = "dashboard"
@@ -27,7 +40,6 @@ lvim.builtin.terminal.float_opts = {
   },
 }
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -182,7 +194,7 @@ formatters.setup {
   {
     command = "prettier",
     args = { "--print-with", "100" },
-    filetypes = { "typescript", "typescriptreact", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "markdown", "graphql", "yaml", "yml", "hcl" },
+    -- filetypes = { "typescript", "typescriptreact", "typescriptreact", "vue", "css", "scss", "less", "html", "json", "jsonc", "markdown", "graphql", "yaml", "yml", "hcl" },
     -- filetypes = { "typescript", "typescriptreact", "yaml" },
   },
   -- {
@@ -389,14 +401,24 @@ lvim.plugins = {
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
-  { "BufWinEnter", "*", "set listchars=tab:→\\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»" },
-  -- { "BufWinLeave", "*", "mkview" },
-  -- { "BufWrite", "*", "mkview" },
-  -- { "BufWinEnter", "*", "silent! loadview" },
-  -- { "BufWrite", "*.hcl", "execute '!hclfmt'" },
-  -- { "BufWrite", "*.hcl", "HclFmt" },
-}
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  pattern = { "*" },
+  -- enable wrap mode for json files only
+  command = "set listchars=tab:→\\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»",
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = { "*.json", "*.jsonc" },
+  -- enable wrap mode for json files only
+  command = "setlocal wrap",
+})
+-- lvim.autocommands.custom_groups = {
+--   { "BufWinEnter", "*", "set listchars=tab:→\\ ,space:·,nbsp:␣,trail:•,eol:¶,precedes:«,extends:»" },
+--   -- { "BufWinLeave", "*", "mkview" },
+--   -- { "BufWrite", "*", "mkview" },
+--   -- { "BufWinEnter", "*", "silent! loadview" },
+--   -- { "BufWrite", "*.hcl", "execute '!hclfmt'" },
+--   -- { "BufWrite", "*.hcl", "HclFmt" },
+-- }
 -- lvim.autocommands.custom_groups = {
 --   { "BufWinLeave", "*", "mkview" },
 --   { "BufWinEnter", "*", "silent! loadview" },

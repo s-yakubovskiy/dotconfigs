@@ -33,13 +33,18 @@ alias kgj='kubectl get job'
 alias kgcj='kubectl get cronjob'
 alias kga='kubectl get all'
 alias kgaa='kubectl get all -A'
+alias kgall='kubectlgetall'
 alias kdp='kubectl delete pod --grace-period=0 --force'
 alias kcf='kubectl create -f'
 alias kaf='kubectl apply -f'
 alias kdf='kubectl delete -f'
+alias kdbg='kubectl run dbg --image=praqma/network-multitool --restart Never'
+alias kdbgd='kubectl delete pod dbg'
 export drc=(--dry-run=client -o yaml)
 
+# git
 alias gu="lazygit"
+alias cdg='cd $(git rev-parse --show-toplevel)'
 # alias lazygit="gitui"
 
 
@@ -50,7 +55,7 @@ alias gcs='gcloud compute ssh'
 ## terraform
 alias tf='terraform'
 alias tfa='terraform apply'
-alias tfaa='terraform apply -auto-approve'
+alias tfaaa='terraform apply -auto-approve'
 alias tfw='terraform workspace select'
 alias tg='terragrunt'
 alias tga='terragrunt apply'
@@ -65,3 +70,8 @@ alias vv='virt-viewer'
 alias urlencode='python3 -c "import urllib.parse, sys; print(urllib.parse.quote( sys.argv[1] if len(sys.argv) > 1 else sys.stdin.read()[0:-1], safe=\"\" ))"'
 alias urldecode='python3 -c "import urllib.parse, sys; print(urllib.parse.unquote( sys.argv[1] if len(sys.argv) > 1 else sys.stdin.read()[0:-1] ))"'
 alias ping-g='ping -c1 www.google.com'
+alias xc='xclip -sel cl'
+
+## tmux
+alias mux='tmuxp load $(tmuxp ls | fzf --layout=reverse --info=inline --height=40%)'
+alias muxls='tmuxp ls'

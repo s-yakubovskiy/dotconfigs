@@ -55,7 +55,7 @@ wrk() {
       cd $proj_dir/$targ
       tput reset 2>/dev/null
       if git rev-parse --is-inside-work-tree &> /dev/null; then
-        git status
+        git status 2>/dev/null
       fi
     else
       echo "could not find project $targ in $proj_dir"
@@ -95,4 +95,32 @@ b64e() {
          fi
          echo $1 | base64
     fi
+}
+
+
+wenv() {
+  if [ $1 ] || [ $ACTIVE_WENV ]; then
+    if [[ $ACTIVE_WENV ]]; then
+      wenv=$ACTIVE_WENV
+    else
+      wenv=${1:-"default"}
+    fi
+    source $HOME/.config/shell/wenv/$wenv
+    echo $wenv >/tmp/wenv_active
+  else
+    echo "ACTIVE_WENV not defined"
+    return 1
+  fi
+}
+
+_list_wenvs() {
+  _files -W $HOME/.config/shell/wenv -/;
+}
+compdef _list_wenvs wenv
+
+function kubectlgetall {
+  for i in $(kubectl api-resources --verbs=list --namespaced -o name | grep -v "events.events.k8s.io" | grep -v "events" | sort | uniq); do
+    echo "Resource:" $i
+    kubectl -n ${1} get --ignore-not-found ${i}
+  done
 }

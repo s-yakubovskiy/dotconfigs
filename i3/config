@@ -40,6 +40,10 @@ exec --no-startup-id xset r rate 440 44
 
 ######  CONKY ##########
 exec --no-startup-id conky
+
+###### FUSUMA #####
+exec fusuma
+exec-always fusuma
 ########################
 # Set shut down, restart and locking features
 bindsym $mod+0 mode "$mode_system"
@@ -182,7 +186,7 @@ bindsym $mod+r mode $rz
 set $logout "[l]ogout [s]uspend loc[k] s[h]utdown [r]eboot"
 mode $logout {
 	bindsym l exec i3-msg exit
-	bindsym s exec sudo pm-suspend	
+	bindsym s exec /home/yakubovskiy/.scripts/suspends	
 	bindsym k exec slock
 	bindsym h exec sudo shutdown -h 0
 	bindsym r exec sudo reboot

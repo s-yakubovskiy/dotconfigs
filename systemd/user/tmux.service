@@ -3,10 +3,10 @@ Description=Start tmux in detached session
 
 [Service]
 Type=forking
-#ExecStart=/usr/bin/tmux new-session -s %u -d
-#ExecStop=/usr/bin/tmux kill-session -t %u
-ExecStart=/usr/bin/tmux new-session -s k8s -d
-ExecStop=/usr/bin/tmux kill-session -t k8s
+; ExecStart=/usr/bin/tmux new-session -s k8s -d
+; ExecStop=/usr/bin/tmux kill-session -t k8s
+ExecStart=/usr/bin/tmuxp gpn sora
+ExecStop=/usr/bin/tmux kill-session -a
 Restart=always
 
 [Install]

@@ -1,0 +1,33 @@
+# vim: set ft=sh: 
+echo -e "\e[31mSORAMITSU\t ... \033[0m working env"
+source ~/work/soramitsu/venvs/soramitsu/bin/activate
+export KUBECONFIG=~/work/soramitsu/k8s/kubeconfigs/soramitsu-k8s-dev
+export LDAPCONF=~/.config/shell/files/soramitsu/.ldaprc
+export LDAPBINDDN=uid=argocd,ou=bot,dc=ldap,dc=soramitsu,dc=co,dc=jp
+export ACTIVE_WENV="soramitsu"
+export PATH=/opt/soramitsu/bin/:$PATH
+export VAULT_ADDR="https://vault.tachi.soramitsu.co.jp"
+echo -e "\e[31mKUBECONFIG\t ... \033[0m $KUBECONFIG"
+red "$(figlet SORAMITSU)"
+
+# SECRETS
+### SORAMITSU
+if [ -f "$HOME/.config/shell/secrets/soramitsu" ]; then source "$HOME/.config/shell/secrets/soramitsu"; fi
+
+### SSH-AGENT
+if [ -f "$HOME/.ssh/soramitsu_ed25519" ]; then 
+  eval $(ssh-agent -s)
+  ssh-add ~/.ssh/soramitsu_ed25519
+fi
+
+### FUNCTIONS
+ans-encrypt-k8s () {
+  encrypt_vault_id=${3:-"infra-k8s-dev"}
+  vault_id=${4:-"infra-k8s-dev@~/.ansible/ansible-infra-k8s-dev.pass"}
+  name=${2:-"default_name"}
+  string=${1:-"string"}
+  ansible-vault encrypt_string \
+    --encrypt-vault-id $encrypt_vault_id \
+    --vault-id $vault_id $string --name $name
+}
+
