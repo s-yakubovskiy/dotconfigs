@@ -44,3 +44,6 @@ ranger/*
 !/shell
 shell/secrets/*
 zoomus.conf
+
+
+!/fusum/config
